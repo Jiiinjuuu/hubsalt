@@ -4,6 +4,20 @@ import FilterModal from '../components/FilterModal'
 
 export default function DocumentCoach(){
   const [tab, setTab] = useState('resume')
+  // Top banner that matches the requested design
+  const Banner = () => (
+    <section className="doc-coach-banner">
+      <div className="banner-inner">
+        <div className="banner-copy">
+          <p className="eyebrow">AI 문서코치</p>
+          <h2 className="banner-title">지금 바로 코칭을 시작해<br/>자소서·포트폴리오를 명확하게, 면접 준비는 확실하게</h2>
+        </div>
+        <div className="banner-cta">
+          <button className="btn-black">문서 코칭 시작하기</button>
+        </div>
+      </div>
+    </section>
+  )
   const chips = ['전체','AI 개발','AI 활용(AI)','게임 프로그래밍','게임 개발','데이터 서비스','보안 네트워크','하드웨어','디자인 아트','기획 경영 마케팅','업무 생산성','커리어 자기계발','대학 교육']
   const [filterOpen, setFilterOpen] = useState(false)
   const [selectedFilters, setSelectedFilters] = useState([])
@@ -11,7 +25,10 @@ export default function DocumentCoach(){
 
   return (
     <>
-    <div className="container">
+  {/* banner under the site hero */}
+  <Banner />
+
+  <div className="container">
       <h2 className="section-title">문서코치</h2>
       <div style={{display:'flex',gap:18,alignItems:'center',justifyContent:'center',marginTop:12}}>
         <button className={`tab ${tab==='resume'?'active':''}`} onClick={()=>setTab('resume')}>자소서 분석</button>

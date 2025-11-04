@@ -11,8 +11,8 @@ import Calendar from './pages/Calendar'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { getCurrentUser, logout as authLogout } from './lib/auth'
-// Use URL import to avoid issues with special characters in filenames
-const logoPng = new URL('./resource/image2/로고/윗파랑로고@200x.png', import.meta.url).href
+// Logo (renamed to ASCII filename)
+const logoPng = new URL('./resource/image2/logo/logo-top-blue-200.png', import.meta.url).href
 
 export default function App(){
   const [user, setUser] = useState(getCurrentUser())

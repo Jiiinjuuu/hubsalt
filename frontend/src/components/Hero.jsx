@@ -1,5 +1,6 @@
 import React from 'react'
-import heroArt from '../resource/image1/온보딩(홈)/최상단.png'
+// Use renamed ASCII asset path
+import heroArt from '../resource/image1/onboarding/home-top.png'
 
 export default function Hero(){
   // layout handled by CSS; heroArt used as an <img> on the right column

@@ -1,8 +1,8 @@
 import React from 'react'
-import imgFilter from '../resource/image1/온보딩(홈)/중단/맞춤필터.png'
-import imgContest from '../resource/image1/온보딩(홈)/중단/공모전.png'
-import imgRecruit from '../resource/image1/온보딩(홈)/중단/채용.png'
-import imgActivity from '../resource/image1/온보딩(홈)/중단/대외활동.png'
+import imgFilter from '../resource/image1/onboarding/middle/card-filter.png'
+import imgContest from '../resource/image1/onboarding/middle/card-contest.png'
+import imgRecruit from '../resource/image1/onboarding/middle/card-recruit.png'
+import imgActivity from '../resource/image1/onboarding/middle/card-activity.png'
 
 const Card = ({title, children, badge, bg}) => (
   <div className={`cat-card ${badge? 'best':''}`} style={{backgroundImage: `url(${bg})`}}>
