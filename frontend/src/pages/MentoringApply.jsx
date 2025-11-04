@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../styles.css'
+import profileImg from './profile.png';
 
 export default function MentoringApply(){
   const [date, setDate] = useState('')
@@ -24,72 +25,173 @@ export default function MentoringApply(){
     const payload = { date, selectedTimes, name, email, phone, message }
     console.log('멘토링 신청', payload)
     alert('신청이 접수되었습니다. (콘솔을 확인하세요)')
-    // reset optional
   }
 
+  // 공통 카드 래퍼 + 헤더 스트립
+  const Card = ({title, children, style}) => (
+    <div style={{background:'#fff', border:'1px solid #ededed', borderRadius:12, overflow:'hidden', ...style}}>
+      <div style={{
+        background:'#f7f8fa',
+        borderBottom:'1px solid #ededed',
+        padding:'12px 16px',
+        fontWeight:600,
+        color:'#111'
+      }}>
+        {title}
+      </div>
+      <div style={{padding:18}}>
+        {children}
+      </div>
+    </div>
+  )
+
   return (
-    <form onSubmit={handleSubmit} className="container" style={{paddingBottom:80}}>
+<form onSubmit={handleSubmit} className="container" style={{paddingBottom:80, width:'100%'}}>
+
       <h2 className="section-title">멘토링 신청</h2>
 
-      <div style={{display:'flex',gap:24,alignItems:'flex-start',marginTop:18}}>
-        <div style={{flex:1}}>
-          <div style={{background:'#fff',border:'1px solid #eee',borderRadius:8,padding:18}}>
-            <h4 style={{margin:0}}>1. 일정 선택</h4>
-            <p className="muted" style={{marginTop:8}}>선택한 날짜와 시간대를 멘토에게 전달합니다.</p>
+      {/* 멘토 프로필 섹션 (상자 느낌 제거) */}
+      <div style={{display:'flex', alignItems:'center', gap:14, marginTop:20}}>
+        <img
+          src={profileImg}
+          alt="멘토 프로필"
+          style={{ width:52, height:52, borderRadius:'50%', objectFit:'cover', display:'block' }}
+        />
+        <div style={{lineHeight:1.4}}>
+          <h4 style={{margin:0, fontSize:16, fontWeight:700, color:'#111'}}>
+            웹 프론트엔드 개발자 취업 가이드 및 이력서 멘토링
+          </h4>
+          <p style={{margin:0, marginTop:4, fontSize:14, color:'#777'}}>
+            피루미&nbsp;&nbsp;
+            <span style={{color:'#2d47ff', fontWeight:600, textDecoration:'none'}}>1시간</span>
+          </p>
+        </div>
+      </div>
 
-            <div style={{display:'flex',gap:18,marginTop:12,alignItems:'flex-start'}}>
-              <div style={{flex:1,border:'1px solid #eee',borderRadius:8,padding:14}}>
-                <label className="muted">날짜 선택</label>
-                <input type="date" value={date} onChange={e=>setDate(e.target.value)} style={{display:'block',marginTop:8,padding:8,borderRadius:8,border:'1px solid #eee'}} />
+      {/* 본문 2컬럼 */}
+      <div style={{display:'flex', gap:24, alignItems:'flex-start', marginTop:18}}>
+        {/* 좌측 */}
+        <div style={{flex:1}}>
+          {/* 1. 일정 선택 */}
+          <Card title="1. 일정 선택">
+            <p className="muted" style={{marginTop:0, marginBottom:12, color:'#8a8f98', fontSize:13}}>
+              신청일 기준 3일 뒤부터 선택할 수 있어요.
+            </p>
+
+            <div style={{display:'flex', gap:18, alignItems:'flex-start'}}>
+              {/* 날짜 */}
+              <div style={{flex:1, border:'1px solid #eee', borderRadius:8, padding:14}}>
+                <label className="muted" style={{fontSize:13, color:'#666'}}>날짜 선택</label>
+                <input
+                  type="date"
+                  value={date}
+                  onChange={e=>setDate(e.target.value)}
+                  style={{display:'block', marginTop:8, padding:10, borderRadius:10, border:'1px solid #e7e7e7', width:'100%'}}
+                />
               </div>
 
-              <div style={{width:320,border:'1px solid #eee',borderRadius:8,padding:14}}>
-                <h5 style={{margin:0}}>가능한 시간 선택 (복수 선택 가능)</h5>
-                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginTop:10}}>
+              {/* 시간 선택 */}
+              <div style={{width:340, border:'1px solid #eee', borderRadius:8, padding:14}}>
+                <h5 style={{margin:0, fontSize:14}}>가능한 시간 선택 (복수 선택 가능)</h5>
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8, marginTop:10}}>
                   {times.map((t,i)=> (
-                    <button type="button" key={i} onClick={()=>toggleTime(t)} style={{padding:10,borderRadius:8,border:'1px solid #eee',background: selectedTimes.includes(t) ? 'linear-gradient(90deg,#2d47ff,#7b66ff)' : '#fff',color: selectedTimes.includes(t) ? '#fff' : '#111'}}>
+                    <button
+                      type="button"
+                      key={i}
+                      onClick={()=>toggleTime(t)}
+                      style={{
+                        padding:'9px 10px',
+                        borderRadius:10,
+                        border:'1px solid #e7e7e7',
+                        background: selectedTimes.includes(t) ? 'linear-gradient(90deg,#0040FF,#7A5CFF)' : '#fff',
+                        color: selectedTimes.includes(t) ? '#fff' : '#111',
+                        fontSize:13,
+                        fontWeight:500
+                      }}
+                    >
                       {t}
                     </button>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
+          </Card>
 
-          <div style={{marginTop:18,background:'#fff',border:'1px solid #eee',borderRadius:8,padding:18}}>
-            <h4 style={{margin:0}}>2. 멘토에게 보낼 메시지</h4>
-            <textarea value={message} onChange={e=>setMessage(e.target.value)} placeholder="멘토링을 신청하는 목적과 간단한 상황을 적어주세요." style={{width:'100%',height:140,marginTop:10,borderRadius:8,border:'1px solid #eee',padding:12}} />
-          </div>
+          {/* 2. 멘토에게 보낼 메시지 */}
+          <Card title="2. 멘토에게 보낼 메시지" style={{marginTop:14}}>
+            <textarea
+              value={message}
+              onChange={e=>setMessage(e.target.value)}
+              placeholder="멘토링을 신청하는 목적과 간단한 상황을 적어주세요."
+              style={{
+                width:'100%', height:140, borderRadius:10,
+                border:'1px solid #e7e7e7', padding:12, fontSize:14
+              }}
+            />
+          </Card>
 
-          <div style={{marginTop:18,background:'#fff',border:'1px solid #eee',borderRadius:8,padding:18}}>
-            <h4 style={{margin:0}}>필독 사항</h4>
-            <p className="muted" style={{marginTop:8}}>예약 후 취소/변경 규정이 적용됩니다. 신청 전 확인하세요.</p>
+          {/* 필독 사항 (넓은 옅은 박스 느낌) */}
+          <div style={{
+            marginTop:14, background:'#fff',
+            border:'1px solid #ededed', borderRadius:12, padding:18
+          }}>
+            <h4 style={{margin:0, fontWeight:600}}>필독 사항</h4>
+            <p className="muted" style={{marginTop:8, color:'#8a8f98', fontSize:13}}>
+              예약 후 취소/변경 규정이 적용됩니다. 신청 전 확인하세요.
+            </p>
           </div>
         </div>
 
-        <aside style={{width:360}}>
-          <div style={{background:'#fff',border:'1px solid #eee',borderRadius:8,padding:18}}>
-            <h4 style={{margin:0}}>멘티 정보</h4>
-            <div style={{marginTop:12}}>
-              <label className="muted">이름</label>
-              <input value={name} onChange={e=>setName(e.target.value)} style={{width:'100%',padding:10,borderRadius:8,border:'1px solid #eee',marginTop:6}} />
+        {/* 우측 사이드 (멘티 정보) */}
+        <aside style={{width:360, position:'relative'}}>
+          <div style={{background:'#fff', border:'1px solid #ededed', borderRadius:12, padding:18}}>
+            <div style={{borderBottom:'1px solid #ededed', paddingBottom:10, marginBottom:12}}>
+              <h4 style={{margin:0, fontWeight:700}}>멘티 정보 <span style={{color:'#bbb'}}>?</span></h4>
+              <p className="muted" style={{margin:6, marginLeft:0, marginBottom:0, color:'#8a8f98', fontSize:12}}>
+                멘토링 확정시 멘토에게 공개됩니다.
+              </p>
+            </div>
+
+            <div style={{marginTop:8}}>
+              <label className="muted" style={{fontSize:13, color:'#666'}}>이름</label>
+              <input
+                value={name} onChange={e=>setName(e.target.value)}
+                style={{width:'100%', padding:10, borderRadius:10, border:'1px solid #e7e7e7', marginTop:6}}
+              />
             </div>
 
             <div style={{marginTop:12}}>
-              <label className="muted">이메일</label>
-              <input value={email} onChange={e=>setEmail(e.target.value)} style={{width:'100%',padding:10,borderRadius:8,border:'1px solid #eee',marginTop:6}} />
+              <label className="muted" style={{fontSize:13, color:'#666'}}>이메일</label>
+              <input
+                value={email} onChange={e=>setEmail(e.target.value)}
+                style={{width:'100%', padding:10, borderRadius:10, border:'1px solid #e7e7e7', marginTop:6}}
+              />
             </div>
 
             <div style={{marginTop:12}}>
-              <label className="muted">전화번호</label>
-              <input value={phone} onChange={e=>setPhone(e.target.value)} style={{width:'100%',padding:10,borderRadius:8,border:'1px solid #eee',marginTop:6}} />
+              <label className="muted" style={{fontSize:13, color:'#666'}}>전화번호</label>
+              <input
+                value={phone} onChange={e=>setPhone(e.target.value)}
+                style={{width:'100%', padding:10, borderRadius:10, border:'1px solid #e7e7e7', marginTop:6}}
+              />
             </div>
-          </div>
-
-          <div style={{marginTop:28,textAlign:'center'}}>
-            <button className="btn-primary" style={{width:260}} type="submit">멘토링 신청하기</button>
           </div>
         </aside>
+      </div>
+
+      {/* ✅ 신청 버튼: 우측 카드 안이 아니라 페이지 하단 '가운데'에 단독 배치 */}
+      <div style={{display:'flex', justifyContent:'center', margin:'28px 0 44px'}}>
+        <button
+          type="submit"
+          style={{
+            width:380, height:48,
+            background:'linear-gradient(90deg, #0040FF, #7A5CFF)',
+            color:'#fff', border:'none', borderRadius:999,
+            fontWeight:700, letterSpacing:'-0.2px'
+          }}
+        >
+          멘토링 신청하기
+        </button>
       </div>
     </form>
   )
