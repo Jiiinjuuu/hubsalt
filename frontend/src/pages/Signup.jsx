@@ -1,112 +1,60 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { signupUser } from '../lib/auth'
 
 export default function Signup(){
-  const [nickname, setNickname] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirm, setConfirm] = useState('')
-  const [phone, setPhone] = useState('')
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+	const [nickname, setNickname] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [confirm, setConfirm] = useState('')
+	const [phone, setPhone] = useState('')
+	const [error, setError] = useState(null)
+	const navigate = useNavigate()
 
-  // simple phone validation: allow digits, spaces, dashes, parentheses; require 8-15 digits
-  function normalizeDigits(s){
-    return (s || '').replace(/[^0-9]/g, '')
-  }
+	async function submit(e){
+		e.preventDefault()
+		setError(null)
+		if(password !== confirm){
+			setError('비밀번호와 확인이 일치하지 않습니다')
+			return
+		}
+		try{
+			await signupUser({nickname,email,password,phone})
+			navigate('/')
+		}catch(err){
+			setError(err.message || '회원가입 실패')
+		}
+	}
 
-  function validate(){
-    if(!nickname) return '닉네임을 입력해 주세요.'
-    if(!email) return '이메일을 입력해 주세요.'
-    if(!password) return '비밀번호를 입력해 주세요.'
-    if(password.length < 6) return '비밀번호는 6자 이상이어야 합니다.'
-    if(password !== confirm) return '비밀번호가 일치하지 않습니다.'
-    const digits = normalizeDigits(phone)
-    if(!digits) return '전화번호를 입력해 주세요.'
-    if(digits.length < 8 || digits.length > 15) return '유효한 전화번호를 입력해 주세요.'
-    return ''
-  }
-
-  async function handleSubmit(e){
-    e.preventDefault()
-    const err = validate()
-    if(err){
-      setError(err)
-      return
-    }
-
-    try{
-      // frontend-only signup (localStorage)
-      const { signupUser } = await import('../lib/auth')
-      signupUser({ nickname, email, password, phone })
-      // redirect to login after success
-      navigate('/login')
-    }catch(err){
-      setError(err.message || '회원가입 중 에러가 발생했습니다.')
-    }
-  }
-
-  return (
-    <div className="page signup-page">
-      <h1>회원가입</h1>
-      <form className="auth-form" onSubmit={handleSubmit}>
-        {error && <div className="form-error">{error}</div>}
-
-        <label>
-          닉네임
-          <input
-            type="text"
-            value={nickname}
-            onChange={e => setNickname(e.target.value)}
-            placeholder="사용하실 닉네임"
-          />
-        </label>
-
-        <label>
-          이메일
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="you@example.com"
-          />
-        </label>
-
-        <label>
-          비밀번호
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="비밀번호 (6자 이상)"
-          />
-        </label>
-
-        <label>
-          비밀번호 확인
-          <input
-            type="password"
-            value={confirm}
-            onChange={e => setConfirm(e.target.value)}
-            placeholder="비밀번호 확인"
-          />
-        </label>
-
-        <label>
-          전화번호
-          <input
-            type="tel"
-            value={phone}
-            onChange={e => setPhone(e.target.value)}
-            placeholder="010-1234-5678"
-          />
-        </label>
-
-        <div className="form-actions">
-          <button type="submit" className="btn-primary">회원가입</button>
-          <Link to="/login" className="btn-link">이미 계정이 있나요?</Link>
-        </div>
-      </form>
-    </div>
-  )
+	return (
+		<div className="container">
+			<h2 className="section-title">회원가입</h2>
+			<form className="auth-form" onSubmit={submit}>
+				{error && <div className="form-error">{error}</div>}
+				<label>
+					닉네임
+					<input value={nickname} onChange={e=>setNickname(e.target.value)} required />
+				</label>
+				<label>
+					이메일
+					<input value={email} onChange={e=>setEmail(e.target.value)} type="email" required />
+				</label>
+				<label>
+					비밀번호
+					<input value={password} onChange={e=>setPassword(e.target.value)} type="password" required />
+				</label>
+				<label>
+					비밀번호 확인
+					<input value={confirm} onChange={e=>setConfirm(e.target.value)} type="password" required />
+				</label>
+				<label>
+					전화번호
+					<input value={phone} onChange={e=>setPhone(e.target.value)} required />
+				</label>
+				<div className="form-actions">
+					<button className="btn-primary" type="submit">회원가입</button>
+				</div>
+			</form>
+		</div>
+	)
 }

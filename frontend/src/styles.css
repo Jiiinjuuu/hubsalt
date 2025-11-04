@@ -26,23 +26,24 @@ body{background:#fff;color:#111}
 button:focus, a:focus{outline:3px solid rgba(45,71,255,0.16);outline-offset:2px}
 
 /* Hero */
-.hero{background-color:#fff;color:#111;display:block}
-.white-hero{padding:20px 0}
+/* Hero/banner styling */
+.hero{display:block}
+.banner-hero{background:#000;color:#fff;padding:48px 0}
 .hero-inner{max-width:var(--container);margin:0 auto;padding:0 20px}
 .hero-art-wrap{position:relative;display:block}
-.hero-art{width:100%;height:auto;display:block;object-fit:cover;max-height:720px}
+.banner-art{background:#000;height:520px;border-radius:6px;display:flex;align-items:center;background-size:cover;background-position:center;background-repeat:no-repeat;position:relative}
 
-/* overlayed copy centered on the hero image */
-.hero-copy-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.hero-copy{pointer-events:auto;max-width:680px;text-align:center;color:#fff}
-.hero-sub{color:#9ec1ff;margin:0 0 6px;font-weight:700}
-.hero-sub::after{content:'';display:block;width:80px;height:4px;background:#1f3bff;margin:10px auto;border-radius:4px}
-.hero-title{font-size:56px;margin:6px 0 10px;line-height:1.02;text-shadow:0 2px 12px rgba(0,0,0,0.45)}
-.hero-desc{color:rgba(255,255,255,0.95);margin-bottom:20px;text-shadow:0 1px 8px rgba(0,0,0,0.35)}
+/* subtle dark overlay for better contrast over the image */
+.banner-art::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0.32),rgba(0,0,0,0.32));border-radius:6px;pointer-events:none}
+.hero-copy-overlay{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%}
+
+/* overlayed copy centered on the banner */
+.hero-copy{pointer-events:auto;max-width:880px;text-align:center;color:#fff}
+.hero-sub{color:#fff;margin:0 0 8px;font-weight:700;opacity:0.9}
+.hero-sub::after{content:'';display:block;width:80px;height:4px;background:#fff;margin:12px auto;border-radius:4px;opacity:0.08}
+.hero-title{font-size:56px;margin:6px 0 10px;line-height:1.02;font-weight:800}
+.hero-desc{color:rgba(255,255,255,0.85);margin-bottom:20px}
 .btn-primary{background:var(--accent);color:#fff;padding:12px 28px;border-radius:28px;border:0;cursor:pointer}
-
-/* optional darker overlay to improve contrast */
-.hero-art-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0.22),rgba(0,0,0,0.22));pointer-events:none}
 
 .hero-inner{text-align:center}
 
@@ -196,6 +197,17 @@ button:focus, a:focus{outline:3px solid rgba(45,71,255,0.16);outline-offset:2px}
   .doc-coach-banner .banner-title{font-size:28px}
   .doc-coach-banner .banner-cta{width:100%}
   .btn-black{width:100%}
+}
+
+@media (max-width:1000px){
+  .banner-art{height:420px}
+  .hero-title{font-size:42px}
+}
+
+@media (max-width:720px){
+  .banner-art{height:320px}
+  .hero-title{font-size:28px}
+  .hero-sub{font-size:14px}
 }
 
 @media (max-width:1000px){
