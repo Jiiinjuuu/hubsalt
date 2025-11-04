@@ -11,6 +11,8 @@ import Calendar from './pages/Calendar'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { getCurrentUser, logout as authLogout } from './lib/auth'
+// Use URL import to avoid issues with special characters in filenames
+const logoPng = new URL('./resource/image2/로고/윗파랑로고@200x.png', import.meta.url).href
 
 export default function App(){
   const [user, setUser] = useState(getCurrentUser())
@@ -34,7 +36,11 @@ export default function App(){
     <div className="app-root">
           <header className="site-header">
         <div className="nav-inner">
-          <Link to="/" className="logo-btn">로고</Link>
+          <Link to="/" className="logo-btn">
+            {/* using logo stored inside src so Vite will bundle it */}
+            <img src={logoPng} alt="로고" className="site-logo" />
+            <span className="sr-only">로고</span>
+          </Link>
           <nav className="main-nav">
             <Link to="/opportunities">기회탐색</Link>
             <Link to="/mentoring">멘토링</Link>
