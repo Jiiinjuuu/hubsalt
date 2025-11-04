@@ -8,15 +8,42 @@ const Chip = ({children, onClick, active}) => (
     <button className={`chip ${active? 'selected':''}`} onClick={onClick}>{children}</button>
 )
 
-const PlaceholderCard = ({item}) => (
+const PlaceholderCard = ({ item }) => (
     <Link to={`/opportunities/${item.id}`} className="op-card link-card">
-        <div className="op-media" />
+        {item.image ? (
+            <img
+                src={item.image}
+                alt={item.title}
+                className="op-media"
+                style={{
+                    width: '100%',
+                    height: 180,
+                    objectFit: 'cover',
+                    borderRadius: 12,
+                    marginBottom: 10,
+                }}
+            />
+        ) : (
+            <div
+                className="op-media"
+                style={{
+                    width: '100%',
+                    height: 180,
+                    background: '#eee',
+                    borderRadius: 12,
+                    marginBottom: 10,
+                }}
+            />
+        )}
         <div className="op-body">
             <h4>{item.title}</h4>
-            <p className="muted">{item.type} · {item.tags.join(' · ')}</p>
+            <p className="muted">
+                {item.type} · {item.tags.join(' · ')}
+            </p>
         </div>
     </Link>
-)
+);
+
 
 export default function Opportunities(){
     const chips = ['전체','AI 개발','AI 활용(AI)','게임·프로그래밍','게임 개발','데이터/서비스','보안/네트워크','HW/로봇','디자인 아트','기업 연계/캠프','창업 도전']
@@ -129,4 +156,3 @@ export default function Opportunities(){
         </section>
     )
 }
-    

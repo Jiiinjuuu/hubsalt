@@ -15,8 +15,29 @@ export default function OpportunityDetail() {
     return (
         <section className="detail container">
             <div className="detail-top">
-                <div className="detail-media">
-                    <div className="op-media" style={{ height: 420, borderRadius: 12, background: '#eee' }} />
+                <div className="detail-media" style={{ position: 'relative' }}>
+                    {/* ✅ 이미지가 있으면 표시, 없으면 회색 박스 */}
+                    {item.image ? (
+                        <img
+                            src={item.image}
+                            alt={item.title}
+                            style={{
+                                width: '100%',
+                                height: 420,
+                                objectFit: 'cover',
+                                borderRadius: 12,
+                            }}
+                        />
+                    ) : (
+                        <div
+                            className="op-media"
+                            style={{
+                                height: 420,
+                                borderRadius: 12,
+                                background: '#eee',
+                            }}
+                        />
+                    )}
                     <div className="badge">D-5</div>
                 </div>
 
@@ -25,13 +46,23 @@ export default function OpportunityDetail() {
                     <div className="detail-meta">
                         <div>{item.org}</div>
                         <div className="muted">{item.period}</div>
-                        <div className="tag-row">{item.tags.map(t => <span key={t} className="chip">{t}</span>)}</div>
+                        <div className="tag-row">
+                            {item.tags.map(t => (
+                                <span key={t} className="chip">
+                                    {t}
+                                </span>
+                            ))}
+                        </div>
                     </div>
 
                     <div style={{ marginTop: 20 }}>
                         <button className="btn-apply">지원하기</button>
-                        <button className="btn-outline" style={{ marginLeft: 12 }}>찜</button>
-                        <button className="btn-outline" style={{ marginLeft: 8 }}>공유</button>
+                        <button className="btn-outline" style={{ marginLeft: 12 }}>
+                            찜
+                        </button>
+                        <button className="btn-outline" style={{ marginLeft: 8 }}>
+                            공유
+                        </button>
                     </div>
                 </div>
             </div>
