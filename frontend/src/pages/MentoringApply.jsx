@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../styles.css'
-import profileImg from '../resource/하고파이미지파일(로고,프로필) 3/원형프로필이미지jpg/면접코치.jpg';
+import profileImg from '../resource/하고파이미지파일(로고,프로필) 3/원형프로필이미지jpg/면접코치프로필@200x-100.jpg';
 
 export default function MentoringApply(){
   const [date, setDate] = useState('')
