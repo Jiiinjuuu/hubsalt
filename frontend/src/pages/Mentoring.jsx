@@ -9,14 +9,97 @@ export default function Mentoring(){
   return (
     <div className="container" style={{paddingBottom:60}}>
       <div className="detail-top">
-        <div className="detail-media" style={{width:520}}>
-          <div className="op-media" style={{height:520,borderRadius:12,background:'#000'}} />
-          <div style={{display:'flex',gap:12,marginTop:12}}>
-            <Link to="/mentoring/apply" className="btn-primary" style={{display:'inline-block',textAlign:'center'}}>멘토링 신청하기</Link>
-            <button className="btn-outline" aria-label="좋아요">♡</button>
-            <button className="btn-outline" aria-label="공유">⤴</button>
-          </div>
-        </div>
+<div className="detail-media" style={{width:520}}>
+  <div
+    className="op-media"
+    style={{
+      height:520,
+      borderRadius:12,
+      background:'#000',
+      position:'relative',   // ✅ 내부에 절대위치 배치 가능하게 함
+      overflow:'hidden'
+    }}
+  >
+    {/* ✅ 버튼들을 검정 박스 내부로 이동 */}
+    <div
+      style={{
+        position:'absolute',
+        bottom:16,          // ✅ 박스 하단 여백
+        left:16,            // ✅ 왼쪽 여백
+        right:16,           // ✅ 오른쪽 여백 (width 꽉 차게)
+        display:'flex',
+        gap:12
+      }}
+    >
+      <Link
+        to="/mentoring/apply"
+        style={{
+          flex:1, // ✅ 남은 공간 꽉 채움
+          display:'block',
+          textAlign:'center',
+          background:'linear-gradient(90deg, #0040FF, #7A5CFF)',
+          color:'#fff',
+          fontWeight:'600',
+          padding:'12px 0',
+          borderRadius:'999px',
+          textDecoration:'none',
+          boxShadow:'0 2px 6px rgba(0,0,0,0.15)',
+          transition:'0.2s'
+        }}
+        onMouseOver={e => (e.currentTarget.style.opacity='0.9')}
+        onMouseOut={e => (e.currentTarget.style.opacity='1')}
+      >
+        멘토링 신청하기
+      </Link>
+
+<button
+  className="btn-outline"
+  aria-label="좋아요"
+  style={{
+    width: 44,
+    height: 44,
+    borderRadius: '50%', // ✅ 완전한 원형
+    background: '#f9f9f9', // ✅ 밝은 회색 배경
+    border: '1px solid #ccc',
+    display: 'flex', // ✅ 아이콘 중앙 정렬
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    cursor: 'pointer',
+    transition: '0.2s',
+  }}
+  onMouseOver={e => (e.currentTarget.style.background = '#eee')}
+  onMouseOut={e => (e.currentTarget.style.background = '#f9f9f9')}
+>
+  ♡
+</button>
+
+<button
+  className="btn-outline"
+  aria-label="공유"
+  style={{
+    width: 44,
+    height: 44,
+    borderRadius: '50%',
+    background: '#f9f9f9',
+    border: '1px solid #ccc',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 18,
+    cursor: 'pointer',
+    transition: '0.2s',
+  }}
+  onMouseOver={e => (e.currentTarget.style.background = '#eee')}
+  onMouseOut={e => (e.currentTarget.style.background = '#f9f9f9')}
+>
+  ⤴
+</button>
+
+    </div>
+  </div>
+</div>
+
 
         <div className="detail-side">
           <div className="muted">멘토링 / 기획 경영 마케팅, 개발 프로그래밍, 커리어 자기계발</div>
@@ -34,11 +117,41 @@ export default function Mentoring(){
             </div>
 
             <h4 style={{marginTop:12}}>포트폴리오</h4>
-            <ul style={{marginTop:8,lineHeight:1.6}}>
-              <li>Next.js 14 + TypeScript·Tailwind로 구성된 프로젝트</li>
-              <li>디자인 시스템 구축 및 Storybook / 퍼포먼스 최적화</li>
-              <li>테스트 구성(Jest/Playwright) · 접근성 개선</li>
-            </ul>
+            <div style={{
+              background:'#f8f8f8',
+              borderRadius:8,
+              padding:'10px 14px', // 내부 여백 축소
+              marginTop:12,
+              border:'1px solid #eee',
+              width:'100%',
+              maxWidth:'520px',      // ✅ 부모의 폭과 동일하게 유지
+              marginLeft:0,          // ✅ 왼쪽 라인 정렬
+              marginRight:'auto',    // ✅ 오른쪽 자동 여백
+              display:'block',       // ✅ flex 정렬 무시
+              alignSelf:'flex-start' // ✅ flex 컨테이너 안에서도 왼쪽 정렬 유지
+            }}>
+              {[
+                'Next.js 14+TypeScript·Tailwind로 SSR/ISR 기반 반응형 웹 구현, LCP 1.8s 달성.',
+                '디자인 시스템 구축(Storybook)으로 재사용 컴포넌트 50+개 표준화, 개발 속도 30%↑',
+                '번들 최적화(코드 스플리팅/트리셰이킹)로 초기 JS 420KB→260KB, Lighthouse 95+.',
+                '접근성 개선(WCAG 2.2 AA, 키보드/스크린리더)로 a11y 점수 100/100 확보.',
+                'PWA 적용(서비스워커·오프라인 캐시)으로 재방문 TTI 45%↓, 앱 설치 지원.',
+                '다국어(i18n, next-intl) 3개 언어 + RTL 대응, 번역 워크플로 자동화.',
+                '상태 관리(Zustand + React Query)·낙관적 업데이트로 체감 지연 60%↓.',
+                '대용량 테이블 가상 스크롤 구현으로 10만 행 렌더링 지연 없이 처리.',
+                '테스트(Jest/RTL/Playwright) 도입, 핵심 플로우 E2E 20케이스, 커버리지 85%.'
+              ].map((item, i) => (
+                <div key={i} style={{
+                  fontSize:14,           // 글자 크기 ↓
+                  lineHeight:1.4,         // 줄 간격 ↓
+                  padding:'6px 0',        // 항목 간 간격 ↓
+                  borderBottom: i !== 8 ? '1px solid #eaeaea' : 'none',
+                  color:'#333'
+                }}>
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
