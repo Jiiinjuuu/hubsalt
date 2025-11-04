@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../styles.css'
-import profileImg from './profile.png';
+import profileImg from '../resource/하고파이미지파일(로고,프로필) 3/원형프로필이미지jpg/면접코치.jpg';
 
 export default function MentoringApply(){
   const [date, setDate] = useState('')
@@ -27,7 +27,7 @@ export default function MentoringApply(){
     alert('신청이 접수되었습니다. (콘솔을 확인하세요)')
   }
 
-  // 공통 카드 래퍼 + 헤더 스트립
+  // 공통 카드 컴포넌트
   const Card = ({title, children, style}) => (
     <div style={{background:'#fff', border:'1px solid #ededed', borderRadius:12, overflow:'hidden', ...style}}>
       <div style={{
@@ -46,11 +46,11 @@ export default function MentoringApply(){
   )
 
   return (
-<form onSubmit={handleSubmit} className="container" style={{paddingBottom:80, width:'100%'}}>
+    <form onSubmit={handleSubmit} className="container" style={{paddingBottom:80, width:'100%'}}>
 
       <h2 className="section-title">멘토링 신청</h2>
 
-      {/* 멘토 프로필 섹션 (상자 느낌 제거) */}
+      {/* 멘토 프로필 */}
       <div style={{display:'flex', alignItems:'center', gap:14, marginTop:20}}>
         <img
           src={profileImg}
@@ -63,7 +63,7 @@ export default function MentoringApply(){
           </h4>
           <p style={{margin:0, marginTop:4, fontSize:14, color:'#777'}}>
             피루미&nbsp;&nbsp;
-            <span style={{color:'#2d47ff', fontWeight:600, textDecoration:'none'}}>1시간</span>
+            <span style={{color:'#2d47ff', fontWeight:600}}>1시간</span>
           </p>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function MentoringApply(){
             </p>
 
             <div style={{display:'flex', gap:18, alignItems:'flex-start'}}>
-              {/* 날짜 */}
+              {/* 날짜 선택 */}
               <div style={{flex:1, border:'1px solid #eee', borderRadius:8, padding:14}}>
                 <label className="muted" style={{fontSize:13, color:'#666'}}>날짜 선택</label>
                 <input
@@ -116,30 +116,6 @@ export default function MentoringApply(){
               </div>
             </div>
           </Card>
-
-          {/* 2. 멘토에게 보낼 메시지 */}
-          <Card title="2. 멘토에게 보낼 메시지" style={{marginTop:14}}>
-            <textarea
-              value={message}
-              onChange={e=>setMessage(e.target.value)}
-              placeholder="멘토링을 신청하는 목적과 간단한 상황을 적어주세요."
-              style={{
-                width:'100%', height:140, borderRadius:10,
-                border:'1px solid #e7e7e7', padding:12, fontSize:14
-              }}
-            />
-          </Card>
-
-          {/* 필독 사항 (넓은 옅은 박스 느낌) */}
-          <div style={{
-            marginTop:14, background:'#fff',
-            border:'1px solid #ededed', borderRadius:12, padding:18
-          }}>
-            <h4 style={{margin:0, fontWeight:600}}>필독 사항</h4>
-            <p className="muted" style={{marginTop:8, color:'#8a8f98', fontSize:13}}>
-              예약 후 취소/변경 규정이 적용됩니다. 신청 전 확인하세요.
-            </p>
-          </div>
         </div>
 
         {/* 우측 사이드 (멘티 정보) */}
@@ -179,7 +155,58 @@ export default function MentoringApply(){
         </aside>
       </div>
 
-      {/* ✅ 신청 버튼: 우측 카드 안이 아니라 페이지 하단 '가운데'에 단독 배치 */}
+      {/* ✅ 멘토에게 보낼 메시지 (페이지 전체 폭) */}
+      <Card
+        title="2. 멘토에게 보낼 메시지"
+        style={{
+          marginTop: 20,
+          width: '100%',
+          maxWidth: 'none',
+          boxSizing: 'border-box',
+        }}
+      >
+        <textarea
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          placeholder="멘토링을 신청하는 목적과 간단한 상황을 적어주세요."
+          style={{
+            width: '100%',
+            height: 140,
+            borderRadius: 10,
+            border: '1px solid #e7e7e7',
+            padding: 12,
+            fontSize: 14,
+            boxSizing: 'border-box',
+          }}
+        />
+      </Card>
+
+      {/* ✅ 필독 사항 (페이지 전체 폭) */}
+      <div
+        style={{
+          marginTop: 14,
+          width: '100%',
+          background: '#fff',
+          border: '1px solid #ededed',
+          borderRadius: 12,
+          padding: 18,
+          boxSizing: 'border-box',
+        }}
+      >
+        <h4 style={{ margin: 0, fontWeight: 600 }}>필독 사항</h4>
+        <p
+          className="muted"
+          style={{
+            marginTop: 8,
+            color: '#8a8f98',
+            fontSize: 13,
+          }}
+        >
+          예약 후 취소/변경 규정이 적용됩니다. 신청 전 확인하세요.
+        </p>
+      </div>
+
+      {/* 하단 버튼 */}
       <div style={{display:'flex', justifyContent:'center', margin:'28px 0 44px'}}>
         <button
           type="submit"

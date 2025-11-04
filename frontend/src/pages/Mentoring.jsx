@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles.css'
 import SortDropdown from '../components/SortDropdown'
+import mentorThumbnail from '../resource/하고파이미지파일(로고,프로필) 3/원형프로필이미지jpg/기획탐색공모전팀모집프로필@200x-100.jpg';
+
 
 export default function Mentoring(){
   const [activeTab, setActiveTab] = useState('intro')
@@ -10,16 +12,25 @@ export default function Mentoring(){
     <div className="container" style={{paddingBottom:60}}>
       <div className="detail-top">
 <div className="detail-media" style={{width:520}}>
-  <div
-    className="op-media"
+<div
+  className="op-media"
+  style={{
+    height:520,
+    borderRadius:12,
+    position:'relative',
+    overflow:'hidden'
+  }}
+>
+  {/* ✅ 이미지 컴포넌트 삽입 */}
+  <img
+    src={mentorThumbnail}
+    alt="멘토 대표 이미지"
     style={{
-      height:520,
-      borderRadius:12,
-      background:'#000',
-      position:'relative',   // ✅ 내부에 절대위치 배치 가능하게 함
-      overflow:'hidden'
+      width:'100%',
+      height:'100%',
+      objectFit:'cover',  // 꽉 차게 잘림 없이
     }}
-  >
+  />
     {/* ✅ 버튼들을 검정 박스 내부로 이동 */}
     <div
       style={{
@@ -161,22 +172,49 @@ export default function Mentoring(){
         <button className={`tab ${activeTab==='reviews'?'active':''}`} onClick={()=>setActiveTab('reviews')}>멘토링 리뷰 (158)</button>
       </div>
 
-      <div className="detail-content">
-        {activeTab === 'intro' && (
-          <div>
-            <h3>자기소개 👋</h3>
-            <p>안녕하세요. 다양한 경험을 해본 프론트엔드 개발자입니다. 비전공 / 고졸로 시작해 에이전시, 스타트업, 중소기업, 대기업 등에서 실무 경험을 쌓았습니다.</p>
+<div className="detail-content">
+  {activeTab === 'intro' && (
+    <div>
+      <h3>자기소개 👋</h3>
+      <p>
+        안녕하세요.<br/>
+        다양한 경험을 해본 프론트엔드 개발자입니다.<br/>
+        비전공 / 고졸로 시작해 에이전시, 스타트업, 중소기업, 대기업 등의 업무 경험 그리고 프리랜서, 외주 등 소소한 경험도 가지고 있습니다.<br/><br/>
+        이외에도 교육자로 우아한테크코스에서 프론트엔드 교육 과정을 설계하고 운영했던 경험이 있으며,
+        패스트캠퍼스, 유데미, 원티드, 삼성 등에서 강의 활동을 이어오고 있습니다.<br/><br/>
+        멘티분들에게 돈이 아깝지 않도록 도움이 되는 맞춤 멘토링을 추구합니다.<br/>
+        (외주 성격이 강한 멘토링은 진행하지 않습니다)<br/><br/>
+        <strong>이력서 멘토링은 글로벌 업계 불황으로 큰 효과를 보기 어렵습니다.</strong><br/>
+        이력서 첨삭을 원한다면 추천하지 않습니다.
+      </p>
 
-            <h4 style={{marginTop:18}}>멘토링 종류</h4>
-            <ul>
-              <li>커리어 상담</li>
-              <li>프론트엔드 학습 방법 및 로드맵 설계</li>
-              <li>모의 면접 및 이력서/포트폴리오 피드백</li>
-            </ul>
+      <h4 style={{marginTop:28}}>멘토링 종류 🧐</h4>
+      <ul>
+        <li>커리어 상담</li>
+        <li>프론트엔드 학습 방법 및 로드맵 설계</li>
+        <li>프론트엔드 개발자 성장 방법</li>
+        <li>이력서 첨삭</li>
+        <li>모의 면접</li>
+      </ul>
 
-            <p className="muted">멘토링은 온라인 또는 오프라인으로 진행됩니다. 대부분 1:1 세션으로 제공됩니다.</p>
-          </div>
-        )}
+      <h4 style={{marginTop:28}}>사전 준비물 🧳</h4>
+      <ul>
+        <li>사전에 받고 싶은 자세한 상담 내용</li>
+        <li>멘티분의 공개 가능한 범위에서의 상세 정보 (정보를 알아야 더 좋은 상담을 할 수 있습니다)</li>
+        <li>온라인 화상 미팅이 가능한 작업 공간 혹은 오프라인 진행</li>
+        <li>이력서 or 포트폴리오 첨삭의 경우 첨삭할 자료가 필요합니다.</li>
+      </ul>
+
+      <p className="muted" style={{marginTop:16, lineHeight:1.6}}>
+        멘토링은 온라인 or 오프라인 선택해주셔야 하며<br/>
+        오프라인의 경우 평일 성남 판교 / 주말 수원 영통에서만 시간 조율 후 가능합니다.<br/>
+        (사전 연락 없을 시 기본 온라인)<br/><br/>
+        멘티분들에게 맞는 맞춤 멘토링을 위해 대부분 1:1로 진행합니다.
+      </p>
+    </div>
+  )}
+
+
 
         {activeTab === 'reviews' && (
           <div>
@@ -193,7 +231,7 @@ export default function Mentoring(){
             <div style={{marginTop:18}}>
               {/* reviews list */}
               {new Array(6).fill(0).map((_,i)=> (
-                <div key={i} className="test-card" style={{marginTop:i===0?0:12,borderRadius:8,border:'1px solid #eee'}}>
+                <div key={i} className="test-card" style={{width: '100%', marginTop:i===0?0:12,borderRadius:8,border:'1px solid #eee', background: '#fff'}}>
                   <div style={{padding:14}}>
                     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                       <div className="muted" style={{fontSize:13}}>2025 . 09 . 15 . 23:07</div>
@@ -219,17 +257,33 @@ export default function Mentoring(){
         )}
       </div>
 
-      <div className="related">
-        <h4 style={{marginTop:28}}>관련 멘토</h4>
-        <div className="rel-row">
-          {[1,2,3].map(i=> (
-            <a key={i} className="rel-card link-card">
-              <div style={{height:120,background:'#000',borderRadius:8}} />
-              <div style={{padding:8}}><strong>멘토 {i}</strong><div className="muted" style={{fontSize:13}}>프론트엔드</div></div>
-            </a>
-          ))}
+<div className="related">
+  <h4 style={{marginTop:28}}>관련 멘토</h4>
+  <div className="rel-row">
+    {[1,2,3].map(i=> (
+      <a key={i} className="rel-card link-card">
+<img
+  src={mentorThumbnail}
+  alt={`멘토 ${i}`}
+  style={{
+    width: '100%',
+    height: 140,             // ✅ 약간 키워서 더 위로 보이게
+    objectFit: 'cover',
+    borderRadius: 8,
+    transform: 'translateY(-18px)',  // ✅ 위로 끌어올림
+    marginBottom: '-12px',           // ✅ 밑공간 보정 (텍스트 밀리지 않게)
+    transition: 'transform 0.2s ease',
+  }}
+/>
+        <div style={{padding:8}}>
+          <strong>멘토 {i}</strong>
+          <div className="muted" style={{fontSize:13}}>프론트엔드</div>
         </div>
-      </div>
+      </a>
+    ))}
+  </div>
+</div>
+
     </div>
   )
 }
