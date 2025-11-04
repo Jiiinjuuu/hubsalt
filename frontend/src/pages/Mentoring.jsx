@@ -8,6 +8,45 @@ import mentorThumbnail from '../resource/하고파이미지파일(로고,프로�
 export default function Mentoring(){
   const [activeTab, setActiveTab] = useState('intro')
 
+    const reviews = [
+    {
+      id: 1,
+      date: '2025.09.15 23:07',
+      rating: 5,
+      text: '부족한 점을 자세히 알려주시고 앞으로의 방향을 제시해주셔서 도움이 되었습니다.'
+    },
+    {
+      id: 2,
+      date: '2025.09.16 20:44',
+      rating: 4,
+      text: '멘토님이 친절하시고 설명이 명확했어요. 다만 시간이 좀 짧게 느껴졌습니다.'
+    },
+    {
+      id: 3,
+      date: '2025.09.18 19:12',
+      rating: 5,
+      text: '실무적인 조언을 많이 들을 수 있어서 좋았습니다!'
+    },
+    {
+      id: 4,
+      date: '2025.09.20 14:33',
+      rating: 3,
+      text: '기본적인 내용 위주로 진행되어 아쉬웠지만 전반적으로 괜찮았습니다.'
+    },
+    {
+      id: 5,
+      date: '2025.09.22 10:55',
+      rating: 5,
+      text: '멘토님께서 포트폴리오 피드백을 세세하게 해주셔서 큰 도움이 됐어요.'
+    },
+    {
+      id: 6,
+      date: '2025.09.25 09:21',
+      rating: 4,
+      text: '좋은 경험이었습니다. 다시 참여하고 싶어요!'
+    },
+  ]
+
   return (
     <div className="container" style={{paddingBottom:60}}>
       <div className="detail-top">
@@ -230,20 +269,23 @@ export default function Mentoring(){
 
             <div style={{marginTop:18}}>
               {/* reviews list */}
-              {new Array(6).fill(0).map((_,i)=> (
-                <div key={i} className="test-card" style={{width: '100%', marginTop:i===0?0:12,borderRadius:8,border:'1px solid #eee', background: '#fff'}}>
-                  <div style={{padding:14}}>
-                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                      <div className="muted" style={{fontSize:13}}>2025 . 09 . 15 . 23:07</div>
-                      <div style={{display:'flex',alignItems:'center',gap:8}}>
-                        <div style={{fontWeight:700}}>★★★★★</div>
-                        <div className="muted">5.0</div>
-                      </div>
-                    </div>
-                    <div style={{marginTop:10,color:'#222'}}>부족한 점을 자세히 알려주시고 앞으로의 방향을 제시해주셔서 도움이 되었습니다.</div>
-                  </div>
-                </div>
-              ))}
+{reviews.map((r, i) => (
+  <div key={r.id} className="test-card" style={{width: '100%', marginTop:i===0?0:12,borderRadius:8,border:'1px solid #eee', background: '#fff'}}>
+    <div style={{padding:14}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <div className="muted" style={{fontSize:13}}>{r.date}</div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}>
+          <div style={{fontWeight:700}}>
+            {'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}
+          </div>
+          <div className="muted">{r.rating.toFixed(1)}</div>
+        </div>
+      </div>
+      <div style={{marginTop:10,color:'#222'}}>{r.text}</div>
+    </div>
+  </div>
+))}
+
 
               <div className="pagination" style={{marginTop:18}}>
                 <button className="page-btn">◀</button>
